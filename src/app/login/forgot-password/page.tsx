@@ -9,12 +9,11 @@ import { useState, useEffect, useRef } from "react";
 
 const schema = z.object({
   email: z.string().email(),
-  password: z.string().min(6),
 });
 
 type FormData = z.infer<typeof schema>;
 
-export default function LoginPage() {
+export default function ForgotPasswordPage() {
   const router = useRouter();
   const {
     register,
@@ -43,9 +42,7 @@ export default function LoginPage() {
   }, [langOpen]);
 
   async function onSubmit() {
-    // TODO: chamar auth real ou mock
-    await new Promise((r) => setTimeout(r, 500));
-    router.push("/dashboard/documents");
+    // Não faz nada, tela estática
   }
 
   return (
@@ -57,14 +54,12 @@ export default function LoginPage() {
           alt="Clazzy logo"
           style={{ width: 50, height: 50 }}
         />
-        {/* Sem espaço entre logo e linha */}
         <div
           className="h-[50px] flex items-center"
           style={{ marginLeft: 0, marginRight: 14 }}
         >
           <div className="w-px h-[32px] bg-[#E5E3DD]" style={{ width: 1.1 }} />
         </div>
-        {/* Botão de idioma com hover englobando globo, texto e seta */}
         <div className="relative inline-block" ref={langBtnRef}>
           <button
             type="button"
@@ -224,6 +219,7 @@ export default function LoginPage() {
                 setValue("email", e.target.value);
               }}
             />
+            {/* Não exibe o botão de limpar se não houver valor */}
             {emailValue && (
               <button
                 type="button"
@@ -258,35 +254,7 @@ export default function LoginPage() {
               </button>
             )}
           </div>
-          <div className="flex flex-col gap-1 relative">
-            <label
-              htmlFor="password"
-              className="text-[14px] font-regular text-gray-400"
-            >
-              Senha
-            </label>
-            <input
-              id="password"
-              type="password"
-              aria-label="Senha"
-              placeholder="Insira sua senha..."
-              className="w-full h-11 rounded-md border border-[#E5E5E5] px-3 text-black placeholder-[#A1A09F] focus:ring-[1px] focus:ring-[#363535] outline-none text-[14px]"
-            />
-            {/* Esqueceu sua senha? */}
-            <a
-              href="/login/forgot-password"
-              className="text-xs font-medium text-gray-600 absolute left-0 underline hover:text-[#ABAAA6] transition-colors"
-              style={{
-                top: "calc(100% + 10px)",
-                color: "#32302B",
-                textDecoration: "underline",
-              }}
-            >
-              Esqueceu sua senha?
-            </a>
-          </div>
-          {/* Espaçamento de 24px entre 'esqueceu sua senha' e botão */}
-          <div style={{ height: 24 }} />
+          {/* Espaçamento de 35px entre input e botão */}
           <button
             type="button"
             role="button"
@@ -307,7 +275,7 @@ export default function LoginPage() {
             }}
             disabled
           >
-            Continuar
+            Enviar link de redefinição
           </button>
         </form>
         {/* Disclaimer */}
