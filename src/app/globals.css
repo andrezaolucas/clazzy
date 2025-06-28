@@ -126,3 +126,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer utilities {
+  .filter-globo {
+    filter: brightness(0) saturate(100%) invert(18%) sepia(6%) saturate(0%)
+      hue-rotate(180deg) brightness(95%) contrast(90%);
+  }
+}

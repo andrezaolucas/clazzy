@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
+import LanguageDropdown from "@/components/ui/LanguageDropdown";
+import { useState, useEffect, useRef } from "react";
 
 const schema = z.object({
   email: z.string().email(),
@@ -18,7 +20,27 @@ export default function LoginPage() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
+    setValue,
   } = useForm<FormData>({ resolver: zodResolver(schema) });
+  const [langOpen, setLangOpen] = useState(false);
+  const langBtnRef = useRef<HTMLDivElement>(null);
+  const [emailValue, setEmailValue] = useState("");
+
+  useEffect(() => {
+    if (!langOpen) return;
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        langBtnRef.current &&
+        !langBtnRef.current.contains(event.target as Node)
+      ) {
+        setLangOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [langOpen]);
 
   async function onSubmit() {
     // TODO: chamar auth real ou mock
@@ -42,26 +64,35 @@ export default function LoginPage() {
         >
           <div className="w-px h-[32px] bg-[#E5E3DD]" style={{ width: 1.1 }} />
         </div>
-        {/* 14px entre linha e globo */}
-        <img
-          src="/svgs/globo.svg"
-          alt="Globo"
-          className="h-4 w-4"
-          style={{ marginRight: 6 }}
-        />
-        {/* 6px entre globo e idioma */}
-        <span
-          className="text-[14px] text-[#91908E] flex items-center"
-          style={{ marginRight: 7 }}
-        >
-          Português (Brasil)
-          {/* 7px entre (Brasil) e seta */}
-          <img
-            src="/svgs/setabaixo.svg"
-            alt="Seta para baixo"
-            style={{ width: 10, height: 10, marginLeft: 7 }}
-          />
-        </span>
+        {/* Botão de idioma com hover englobando globo, texto e seta */}
+        <div className="relative inline-block" ref={langBtnRef}>
+          <button
+            type="button"
+            className="group flex items-center px-3 py-1 text-sm font-regular text-[#91908E] focus:outline-none transition-colors"
+            style={{ width: 200, borderRadius: 8, height: 40 }}
+            onMouseOver={(e) => (e.currentTarget.style.background = "#F5F4F3")}
+            onMouseOut={(e) =>
+              (e.currentTarget.style.background = "transparent")
+            }
+            onClick={() => setLangOpen((v) => !v)}
+            aria-haspopup="listbox"
+            aria-expanded={langOpen}
+          >
+            <img
+              src="/svgs/globo.svg"
+              alt="Globo"
+              className="h-5 w-5 mr-2 transition-all group-hover:filter-globo"
+              style={{ marginRight: 10 }}
+            />
+            <span className="flex-1 text-left">Português (Brasil)</span>
+            <img
+              src="/svgs/setabaixo.svg"
+              alt="Seta para baixo"
+              style={{ width: 12, height: 12, marginLeft: 10 }}
+            />
+          </button>
+          <LanguageDropdown isOpen={langOpen} />
+        </div>
       </header>
 
       {/* Ilustração */}
@@ -77,9 +108,9 @@ export default function LoginPage() {
             width: 111,
             height: 101,
             position: "absolute",
-            left: "68px",
+            left: "85px",
             top: 0,
-            marginBottom: 32,
+            marginBottom: 33,
           }}
         />
       </div>
@@ -90,7 +121,7 @@ export default function LoginPage() {
           Nunca escreva sozinho.
         </h1>
         <p
-          className="text-[24px] font-semibold mt-0 text-left"
+          className="text-[24px] font-medium mt-0 text-left"
           style={{ color: "#ABAAA6" }}
         >
           Faça login na sua conta da
@@ -107,8 +138,8 @@ export default function LoginPage() {
             type="button"
             role="button"
             aria-pressed="false"
-            className="relative flex items-center w-full h-10 border border-[#E5E5E5] rounded-md font-medium text-black bg-white transition overflow-hidden"
-            style={{ width: 351, height: 40 }}
+            className="relative flex items-center w-full h-10 border border-[#E5E5E5] rounded-md font-medium bg-white transition overflow-hidden"
+            style={{ width: 351, height: 40, color: "#32302B" }}
             onMouseOver={(e) => {
               e.currentTarget.style.background = "#F5F4F3";
               e.currentTarget.style.borderColor = "#E1E1DE";
@@ -139,8 +170,8 @@ export default function LoginPage() {
             type="button"
             role="button"
             aria-pressed="false"
-            className="relative flex items-center w-full h-10 border border-[#E5E5E5] rounded-md font-medium text-black bg-white transition overflow-hidden"
-            style={{ width: 351, height: 40 }}
+            className="relative flex items-center w-full h-10 border border-[#E5E5E5] rounded-md font-medium bg-white transition overflow-hidden"
+            style={{ width: 351, height: 40, color: "#32302B" }}
             onMouseOver={(e) => {
               e.currentTarget.style.background = "#F5F4F3";
               e.currentTarget.style.borderColor = "#E1E1DE";
@@ -174,10 +205,10 @@ export default function LoginPage() {
 
         {/* Formulário */}
         <form className="w-full flex flex-col gap-4">
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 relative">
             <label
               htmlFor="email"
-              className="text-[14px] font-semibold text-gray-500"
+              className="text-[14px] font-regular text-gray-400"
             >
               E-mail
             </label>
@@ -186,14 +217,51 @@ export default function LoginPage() {
               type="email"
               aria-label="E-mail"
               placeholder="Insira seu endereço de e-mail..."
-              className="w-full h-11 rounded-md border border-[#E5E5E5] px-3 text-black placeholder-[#A1A09F] focus:ring-2 focus:ring-[#363535] outline-none"
-              disabled
+              className="w-full h-11 rounded-md border border-[#E5E5E5] px-3 pr-10 text-black placeholder-[#A1A09F] focus:ring-[1px] focus:ring-[#363535] outline-none text-[14px]"
+              value={emailValue}
+              onChange={(e) => {
+                setEmailValue(e.target.value);
+                setValue("email", e.target.value);
+              }}
             />
+            {emailValue && (
+              <button
+                type="button"
+                aria-label="Limpar e-mail"
+                className="absolute right-3 flex items-center justify-center transition-colors"
+                style={{
+                  top: "67%",
+                  transform: "translateY(-50%)",
+                  padding: 2,
+                  background: "transparent",
+                  border: 0,
+                  cursor: "pointer",
+                  borderRadius: 20,
+                }}
+                tabIndex={0}
+                onClick={() => {
+                  setEmailValue("");
+                  setValue("email", "");
+                }}
+                onMouseOver={(e) => {
+                  e.currentTarget.style.background = "#F5F4F3";
+                }}
+                onMouseOut={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                }}
+              >
+                <img
+                  src="/svgs/xemail.svg"
+                  alt="Limpar e-mail"
+                  style={{ width: 16, height: 16 }}
+                />
+              </button>
+            )}
           </div>
           <div className="flex flex-col gap-1 relative">
             <label
               htmlFor="password"
-              className="text-[14px] font-semibold text-gray-500"
+              className="text-[14px] font-regular text-gray-400"
             >
               Senha
             </label>
@@ -202,13 +270,12 @@ export default function LoginPage() {
               type="password"
               aria-label="Senha"
               placeholder="Insira sua senha..."
-              className="w-full h-11 rounded-md border border-[#E5E5E5] px-3 text-black placeholder-[#A1A09F] focus:ring-2 focus:ring-[#363535] outline-none"
-              disabled
+              className="w-full h-11 rounded-md border border-[#E5E5E5] px-3 text-black placeholder-[#A1A09F] focus:ring-[1px] focus:ring-[#363535] outline-none text-[14px]"
             />
             {/* Esqueceu sua senha? */}
             <span
               className="text-xs font-medium text-gray-600 absolute left-0"
-              style={{ top: "calc(100% + 10px)" }}
+              style={{ top: "calc(100% + 10px)", color: "#32302B" }}
             >
               Esqueceu sua senha?
             </span>
@@ -219,7 +286,7 @@ export default function LoginPage() {
             type="button"
             role="button"
             aria-pressed="false"
-            className="w-full rounded-md font-semibold transition border"
+            className="w-full rounded-md font-medium transition border"
             style={{
               width: 351,
               height: 40,
@@ -241,7 +308,7 @@ export default function LoginPage() {
         {/* Disclaimer */}
         <div style={{ height: 31 }} />
         <p
-          className="text-[12px] text-center"
+          className="text-[12px] font-normal text-center"
           style={{
             color: "#73726D",
             lineHeight: "147.3%",
