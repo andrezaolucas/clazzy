@@ -65,12 +65,24 @@ export default function LoginPage() {
       </header>
 
       {/* Ilustração */}
-      <img
-        src="/svgs/caderno.svg"
-        alt="Ilustração mão segurando livro"
-        className="mb-8 object-contain mx-auto"
-        style={{ width: 111, height: 101 }}
-      />
+      <div
+        className="w-full max-w-[351px] mx-auto flex justify-start"
+        style={{ position: "relative", height: 133 }}
+      >
+        <img
+          src="/svgs/caderno.svg"
+          alt="Ilustração mão segurando livro"
+          className="object-contain"
+          style={{
+            width: 111,
+            height: 101,
+            position: "absolute",
+            left: "68px",
+            top: 0,
+            marginBottom: 32,
+          }}
+        />
+      </div>
 
       {/* Títulos alinhados à esquerda */}
       <div className="w-full max-w-[351px] mx-auto">
@@ -95,7 +107,7 @@ export default function LoginPage() {
             type="button"
             role="button"
             aria-pressed="false"
-            className="flex items-center justify-center w-full h-10 border border-[#E5E5E5] rounded-md gap-2 font-medium text-black bg-white transition"
+            className="relative flex items-center w-full h-10 border border-[#E5E5E5] rounded-md font-medium text-black bg-white transition overflow-hidden"
             style={{ width: 351, height: 40 }}
             onMouseOver={(e) => {
               e.currentTarget.style.background = "#F5F4F3";
@@ -106,14 +118,28 @@ export default function LoginPage() {
               e.currentTarget.style.borderColor = "#E5E5E5";
             }}
           >
-            <img src="/svgs/microsoft.svg" alt="" className="h-5 w-5" />
-            Continuar com a Microsoft
+            <span
+              className="absolute left-4 flex items-center"
+              style={{ width: 24, height: 24 }}
+            >
+              <img
+                src="/svgs/microsoft.svg"
+                alt=""
+                style={{ width: 16, height: 16 }}
+              />
+            </span>
+            <span
+              className="w-full text-center"
+              style={{ fontSize: 14, letterSpacing: "5%" }}
+            >
+              <span className="ml-[26px]">Continuar com a Microsoft</span>
+            </span>
           </button>
           <button
             type="button"
             role="button"
             aria-pressed="false"
-            className="flex items-center justify-center w-full h-10 border border-[#E5E5E5] rounded-md gap-2 font-medium text-black bg-white transition"
+            className="relative flex items-center w-full h-10 border border-[#E5E5E5] rounded-md font-medium text-black bg-white transition overflow-hidden"
             style={{ width: 351, height: 40 }}
             onMouseOver={(e) => {
               e.currentTarget.style.background = "#F5F4F3";
@@ -124,8 +150,22 @@ export default function LoginPage() {
               e.currentTarget.style.borderColor = "#E5E5E5";
             }}
           >
-            <img src="/svgs/google.svg" alt="" className="h-5 w-5" />
-            Continuar com o Google
+            <span
+              className="absolute left-4 flex items-center"
+              style={{ width: 24, height: 24 }}
+            >
+              <img
+                src="/svgs/google.svg"
+                alt=""
+                style={{ width: 16, height: 16 }}
+              />
+            </span>
+            <span
+              className="w-full text-center"
+              style={{ fontSize: 14, letterSpacing: "5%" }}
+            >
+              <span className="ml-[12px]">Continuar com o Google</span>
+            </span>
           </button>
         </div>
 
