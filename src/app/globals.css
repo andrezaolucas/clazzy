@@ -133,3 +133,10 @@
       hue-rotate(180deg) brightness(95%) contrast(90%);
   }
 }
+
+/* Impede seleção e arrasto de todos os SVGs e imagens da pasta /svgs/ */
+img[src*="/svgs/"],
+svg[src*="/svgs/"] {
+  user-select: none;
+  pointer-events: none;
+}

@@ -6,6 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import LanguageDropdown from "@/components/ui/LanguageDropdown";
 import { useState, useEffect, useRef } from "react";
+import Button from "@/components/ui/button";
+import SocialButton from "@/components/ui/SocialButton";
+import Input from "@/components/ui/input";
 
 const schema = z.object({
   email: z.string().email(),
@@ -128,71 +131,29 @@ export default function ForgotPasswordPage() {
       {/* Container do formulário */}
       <div className="w-full max-w-[351px] flex flex-col items-center mt-8">
         {/* Botões sociais */}
-        <div className="flex flex-col gap-3 w-full mb-6">
-          <button
-            type="button"
-            role="button"
-            aria-pressed="false"
-            className="relative flex items-center w-full h-10 border border-[#E5E5E5] rounded-md font-medium bg-white transition overflow-hidden"
-            style={{ width: 351, height: 40, color: "#32302B" }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.background = "#F5F4F3";
-              e.currentTarget.style.borderColor = "#E1E1DE";
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.background = "#fff";
-              e.currentTarget.style.borderColor = "#E5E5E5";
-            }}
-          >
-            <span
-              className="absolute left-4 flex items-center"
-              style={{ width: 24, height: 24 }}
-            >
+        <div className="flex flex-col gap-2 w-full mb-6">
+          <SocialButton
+            icon={
               <img
                 src="/svgs/microsoft.svg"
                 alt=""
                 style={{ width: 16, height: 16 }}
               />
-            </span>
-            <span
-              className="w-full text-center"
-              style={{ fontSize: 14, letterSpacing: "5%" }}
-            >
-              <span className="ml-[26px]">Continuar com a Microsoft</span>
-            </span>
-          </button>
-          <button
-            type="button"
-            role="button"
-            aria-pressed="false"
-            className="relative flex items-center w-full h-10 border border-[#E5E5E5] rounded-md font-medium bg-white transition overflow-hidden"
-            style={{ width: 351, height: 40, color: "#32302B" }}
-            onMouseOver={(e) => {
-              e.currentTarget.style.background = "#F5F4F3";
-              e.currentTarget.style.borderColor = "#E1E1DE";
-            }}
-            onMouseOut={(e) => {
-              e.currentTarget.style.background = "#fff";
-              e.currentTarget.style.borderColor = "#E5E5E5";
-            }}
+            }
           >
-            <span
-              className="absolute left-4 flex items-center"
-              style={{ width: 24, height: 24 }}
-            >
+            Continuar com a Microsoft
+          </SocialButton>
+          <SocialButton
+            icon={
               <img
                 src="/svgs/google.svg"
                 alt=""
                 style={{ width: 16, height: 16 }}
               />
-            </span>
-            <span
-              className="w-full text-center"
-              style={{ fontSize: 14, letterSpacing: "5%" }}
-            >
-              <span className="ml-[12px]">Continuar com o Google</span>
-            </span>
-          </button>
+            }
+          >
+            Continuar com o Google
+          </SocialButton>
         </div>
 
         {/* Divider suave */}
@@ -200,73 +161,27 @@ export default function ForgotPasswordPage() {
 
         {/* Formulário */}
         <form className="w-full flex flex-col gap-4">
-          <div className="flex flex-col gap-1 relative">
-            <label
-              htmlFor="email"
-              className="text-[14px] font-regular text-gray-400"
-            >
-              E-mail
-            </label>
-            <input
-              id="email"
-              type="email"
-              aria-label="E-mail"
-              placeholder="Insira seu endereço de e-mail..."
-              className="w-full h-11 rounded-md border border-[#E5E5E5] px-3 pr-10 text-black placeholder-[#A1A09F] focus:ring-[1px] focus:ring-[#363535] outline-none text-[14px]"
-              value={emailValue}
-              onChange={(e) => {
-                setEmailValue(e.target.value);
-                setValue("email", e.target.value);
-              }}
-            />
-            {/* Não exibe o botão de limpar se não houver valor */}
-            {emailValue && (
-              <button
-                type="button"
-                aria-label="Limpar e-mail"
-                className="absolute right-3 flex items-center justify-center transition-colors"
-                style={{
-                  top: "67%",
-                  transform: "translateY(-50%)",
-                  padding: 2,
-                  background: "transparent",
-                  border: 0,
-                  cursor: "pointer",
-                  borderRadius: 20,
-                }}
-                tabIndex={0}
-                onClick={() => {
-                  setEmailValue("");
-                  setValue("email", "");
-                }}
-                onMouseOver={(e) => {
-                  e.currentTarget.style.background = "#F5F4F3";
-                }}
-                onMouseOut={(e) => {
-                  e.currentTarget.style.background = "transparent";
-                }}
-              >
-                <img
-                  src="/svgs/xemail.svg"
-                  alt="Limpar e-mail"
-                  style={{ width: 16, height: 16 }}
-                />
-              </button>
-            )}
-          </div>
-          {/* Espaçamento de 35px entre input e botão */}
-          <button
-            type="button"
-            role="button"
-            aria-pressed="false"
-            className="w-full rounded-md font-medium transition border text-[14px]"
-            style={{
-              width: 351,
-              height: 40,
-              background: "#363535",
-              color: "#fff",
-              borderColor: "#000",
+          <Input
+            id="email"
+            label="E-mail"
+            type="email"
+            placeholder="Insira seu endereço de e-mail..."
+            value={emailValue}
+            onChange={(e) => {
+              setEmailValue(e.target.value);
+              setValue("email", e.target.value);
             }}
+            onClear={() => {
+              setEmailValue("");
+              setValue("email", "");
+            }}
+            autoComplete="email"
+            className="pr-10"
+          />
+          <Button
+            variant="primary"
+            type="button"
+            style={{ width: 351, height: 40 }}
             onMouseOver={(e) => {
               e.currentTarget.style.background = "#000";
             }}
@@ -276,7 +191,7 @@ export default function ForgotPasswordPage() {
             disabled
           >
             Enviar link de redefinição
-          </button>
+          </Button>
         </form>
         {/* Disclaimer */}
         <div style={{ height: 31 }} />

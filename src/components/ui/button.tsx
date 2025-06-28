@@ -1,52 +1,46 @@
-import * as React from "react";
-import { cn } from "@/lib/utils";
+import React from "react";
+import clsx from "clsx";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?:
-    | "default"
-    | "destructive"
-    | "outline"
-    | "secondary"
-    | "ghost"
-    | "link";
-  size?: "default" | "sm" | "lg" | "icon";
+  variant?: "primary" | "secondary" | "outline" | "cta";
+  icon?: React.ReactNode;
+  children: React.ReactNode;
 }
 
-const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant = "default", size = "default", ...props }, ref) => {
-    const baseClasses =
-      "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2";
+const baseStyles =
+  "w-full h-10 rounded-md font-medium transition border text-[14px] flex items-center justify-center gap-2 select-none focus:outline-none";
 
-    const variantClasses = {
-      default: "bg-blue-600 text-white shadow-sm hover:bg-blue-700",
-      destructive: "bg-red-600 text-white shadow-sm hover:bg-red-700",
-      outline: "border border-gray-300 bg-white shadow-sm hover:bg-gray-50",
-      secondary: "bg-gray-100 text-gray-900 shadow-sm hover:bg-gray-200",
-      ghost: "hover:bg-gray-100",
-      link: "text-blue-600 underline-offset-4 hover:underline",
-    };
+const variants: Record<string, string> = {
+  primary:
+    "bg-[#363535] text-white border-black hover:bg-black disabled:bg-[#E5E5E5] disabled:text-[#A1A09F] disabled:border-[#E5E5E5]",
+  secondary:
+    "bg-white text-[#32302B] border-[#E5E5E5] hover:bg-[#F5F4F3] hover:border-[#E1E1DE]",
+  outline:
+    "bg-transparent text-[#32302B] border-[#E5E5E5] hover:bg-[#F5F4F3] hover:border-[#E1E1DE]",
+  cta: "bg-[#040404] text-white border-[#040404] hover:bg-[#32302B]",
+};
 
-    const sizeClasses = {
-      default: "h-9 px-4 py-2",
-      sm: "h-8 rounded-md gap-1.5 px-3",
-      lg: "h-10 rounded-md px-6",
-      icon: "h-9 w-9",
-    };
-
-    return (
-      <button
-        className={cn(
-          baseClasses,
-          variantClasses[variant],
-          sizeClasses[size],
-          className
-        )}
-        ref={ref}
-        {...props}
-      />
-    );
-  }
-);
-Button.displayName = "Button";
-
-export { Button };
+export default function Button({
+  variant = "primary",
+  icon,
+  children,
+  className,
+  disabled,
+  ...props
+}: ButtonProps) {
+  return (
+    <button
+      className={clsx(
+        baseStyles,
+        variants[variant],
+        disabled && "cursor-not-allowed opacity-60",
+        className
+      )}
+      disabled={disabled}
+      {...props}
+    >
+      {icon && <span className="flex items-center mr-2">{icon}</span>}
+      <span className="w-full text-center">{children}</span>
+    </button>
+  );
+}
