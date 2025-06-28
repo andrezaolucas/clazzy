@@ -9,6 +9,7 @@ import { useState, useEffect, useRef } from "react";
 import Button from "@/components/ui/button";
 import SocialButton from "@/components/ui/SocialButton";
 import Input from "@/components/ui/input";
+import { validateEmail } from "@/lib/utils";
 
 const schema = z.object({
   email: z.string().email(),
@@ -27,6 +28,7 @@ export default function ForgotPasswordPage() {
   const [langOpen, setLangOpen] = useState(false);
   const langBtnRef = useRef<HTMLDivElement>(null);
   const [emailValue, setEmailValue] = useState("");
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!langOpen) return;
@@ -182,16 +184,25 @@ export default function ForgotPasswordPage() {
             variant="primary"
             type="button"
             style={{ width: 351, height: 40 }}
+            onClick={() => {
+              const error = validateEmail(emailValue);
+              setEmailError(error);
+              // Não faz submit real, só mostra erro
+            }}
             onMouseOver={(e) => {
               e.currentTarget.style.background = "#000";
             }}
             onMouseOut={(e) => {
               e.currentTarget.style.background = "#363535";
             }}
-            disabled
           >
             Enviar link de redefinição
           </Button>
+          {emailError && (
+            <p className="text-red-500 text-xs mt-2 text-center">
+              {emailError}
+            </p>
+          )}
         </form>
         {/* Disclaimer */}
         <div style={{ height: 31 }} />

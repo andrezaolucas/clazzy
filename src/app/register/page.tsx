@@ -9,6 +9,7 @@ import { useState, useEffect, useRef } from "react";
 import Button from "@/components/ui/button";
 import SocialButton from "@/components/ui/SocialButton";
 import Input from "@/components/ui/input";
+import { validateEmail } from "@/lib/utils";
 
 const schema = z.object({
   name: z.string().min(2),
@@ -30,6 +31,7 @@ export default function RegisterPage() {
   const langBtnRef = useRef<HTMLDivElement>(null);
   const [nameValue, setNameValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
+  const [emailError, setEmailError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!langOpen) return;
@@ -207,6 +209,13 @@ export default function RegisterPage() {
             variant="primary"
             type="submit"
             style={{ width: 351, height: 40 }}
+            onClick={(e) => {
+              const error = validateEmail(emailValue);
+              setEmailError(error);
+              if (error) {
+                e.preventDefault();
+              }
+            }}
             onMouseOver={(e) => {
               e.currentTarget.style.background = "#000";
             }}
@@ -216,6 +225,11 @@ export default function RegisterPage() {
           >
             Continuar
           </Button>
+          {emailError && (
+            <p className="text-red-500 text-xs mt-2 text-center">
+              {emailError}
+            </p>
+          )}
         </form>
         <div style={{ height: 31 }} />
         <p
