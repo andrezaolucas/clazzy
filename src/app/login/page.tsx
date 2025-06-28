@@ -160,9 +160,8 @@ export default function LoginPage() {
             Continuar com o Google
           </SocialButton>
         </div>
-
         {/* Divider suave */}
-        <div className="h-px w-full bg-gray-100 my-6" />
+        <div className="h-px w-full bg-gray-100 my-6 -mt-0" />
 
         {/* Formulário */}
         <form className="w-full flex flex-col gap-4">
@@ -242,6 +241,19 @@ export default function LoginPage() {
           </span>
           .
         </p>
+        {/* Link para registro */}
+        <div className="mt-6 text-center">
+          <span className="text-[12px] text-[#73726D]">
+            Não tem uma conta?{" "}
+          </span>
+          <a
+            href="/register"
+            className="text-[12px] font-medium text-[#32302B] underline hover:text-[#ABAAA6] transition-colors"
+            style={{ textDecoration: "underline" }}
+          >
+            Se inscreva aqui
+          </a>
+        </div>
       </div>
     </main>
   );

@@ -11,12 +11,14 @@ import SocialButton from "@/components/ui/SocialButton";
 import Input from "@/components/ui/input";
 
 const schema = z.object({
+  name: z.string().min(2),
   email: z.string().email(),
+  password: z.string().min(6),
 });
 
 type FormData = z.infer<typeof schema>;
 
-export default function ForgotPasswordPage() {
+export default function RegisterPage() {
   const router = useRouter();
   const {
     register,
@@ -26,6 +28,7 @@ export default function ForgotPasswordPage() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
   const [langOpen, setLangOpen] = useState(false);
   const langBtnRef = useRef<HTMLDivElement>(null);
+  const [nameValue, setNameValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
 
   useEffect(() => {
@@ -45,7 +48,9 @@ export default function ForgotPasswordPage() {
   }, [langOpen]);
 
   async function onSubmit() {
-    // Não faz nada, tela estática
+    // TODO: lógica de registro
+    await new Promise((r) => setTimeout(r, 500));
+    router.push("/dashboard/documents");
   }
 
   return (
@@ -122,7 +127,7 @@ export default function ForgotPasswordPage() {
           className="text-[24px] font-medium mt-0 text-left"
           style={{ color: "#ABAAA6" }}
         >
-          Faça login na sua conta da
+          Crie sua conta na
           <br />
           clazzy
         </p>
@@ -155,12 +160,24 @@ export default function ForgotPasswordPage() {
             Continuar com o Google
           </SocialButton>
         </div>
-
-        {/* Divider suave */}
         <div className="h-px w-full bg-gray-100 my-6 -mt-0" />
-
-        {/* Formulário */}
-        <form className="w-full flex flex-col gap-4">
+        <form
+          className="w-full flex flex-col gap-4"
+          onSubmit={handleSubmit(onSubmit)}
+        >
+          <Input
+            id="name"
+            label="Nome"
+            type="text"
+            placeholder="Digite seu nome..."
+            value={nameValue}
+            onChange={(e) => {
+              setNameValue(e.target.value);
+              setValue("name", e.target.value);
+            }}
+            autoComplete="name"
+            className="pr-10"
+          />
           <Input
             id="email"
             label="E-mail"
@@ -178,9 +195,17 @@ export default function ForgotPasswordPage() {
             autoComplete="email"
             className="pr-10"
           />
+          <Input
+            id="password"
+            label="Senha"
+            type="password"
+            placeholder="Insira sua senha..."
+            autoComplete="new-password"
+          />
+          <div style={{ height: 0 }} />
           <Button
             variant="primary"
-            type="button"
+            type="submit"
             style={{ width: 351, height: 40 }}
             onMouseOver={(e) => {
               e.currentTarget.style.background = "#000";
@@ -188,12 +213,10 @@ export default function ForgotPasswordPage() {
             onMouseOut={(e) => {
               e.currentTarget.style.background = "#363535";
             }}
-            disabled
           >
-            Enviar link de redefinição
+            Continuar
           </Button>
         </form>
-        {/* Disclaimer */}
         <div style={{ height: 31 }} />
         <p
           className="text-[12px] font-normal text-center"
@@ -215,6 +238,16 @@ export default function ForgotPasswordPage() {
           </span>
           .
         </p>
+        <div className="mt-6 text-center">
+          <span className="text-[12px] text-[#73726D]">Já tem uma conta? </span>
+          <a
+            href="/login"
+            className="text-[12px] font-medium text-[#32302B] underline hover:text-[#ABAAA6] transition-colors"
+            style={{ textDecoration: "underline" }}
+          >
+            Faça login
+          </a>
+        </div>
       </div>
     </main>
   );
