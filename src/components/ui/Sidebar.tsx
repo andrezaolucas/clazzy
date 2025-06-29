@@ -23,34 +23,34 @@ export default function Sidebar() {
         <img src="/svgs/logo.svg" alt="Logo Clazzy" width={40} height={40} />
         <button
           type="button"
-          className="p-0 m-0 bg-transparent border-none focus:outline-none mr-[-12px]"
+          className="w-8 h-8 flex items-center justify-center p-0 m-0 bg-transparent border-none focus:outline-none mr-[-12px] rounded-md transition-colors hover:bg-[#F1F0EA] group"
           style={{ lineHeight: 0 }}
           aria-label="Fechar sidebar"
         >
           <img
             src="/svgs/closesidebar.svg"
             alt="Fechar sidebar"
-            className="w-5 h-5"
+            className="w-5 h-5 group-hover:brightness-0"
           />
         </button>
       </div>
       {/* Avatar abaixo da logo */}
-      <div className="flex items-center mb-8 gap-2">
+      <div className="flex items-center mb-8 gap-2 rounded-md transition-colors cursor-pointer hover:bg-[#F1F0EA] group px-2 py-1">
         <img
           src="/svgs/photouser.svg"
           alt="Avatar"
           width={21}
           height={22}
-          style={{ borderRadius: 4, marginLeft: 10 }}
-          className="object-cover"
+          style={{ borderRadius: 4, marginLeft: 1 }}
+          className="object-cover group-hover:brightness-90"
         />
-        <span className="font-medium text-[14px] text-[#32302B] whitespace-nowrap">
+        <span className="font-medium text-[14px] text-[#32302B] whitespace-nowrap group-hover:text-[#363535]">
           André Lucas
         </span>
         <img
           src="/svgs/arrowupdown.svg"
           alt="Trocar usuário"
-          className="w-5 h-5 ml-1"
+          className="w-5 h-5 ml-1 group-hover:brightness-0"
         />
       </div>
       {/* Menu principal */}

@@ -61,7 +61,7 @@ export default function DocumentHeader({
       </button>
       <button
         onClick={onOpenSettings}
-        className="p-2 text-gray-500 hover:text-gray-700 flex items-center justify-center"
+        className="p-2 text-gray-500 hover:text-gray-700 hover:bg-[#F1F0EA] rounded-md transition-colors flex items-center justify-center"
         aria-label="Configurações"
         type="button"
         style={{ marginRight: 8, alignSelf: "center" }}
@@ -70,7 +70,7 @@ export default function DocumentHeader({
       </button>
       <button
         onClick={onOpenHistory}
-        className="p-2 text-gray-500 hover:text-gray-700 flex items-center justify-center"
+        className="p-2 text-gray-500 hover:text-gray-700 hover:bg-[#F1F0EA] rounded-md transition-colors flex items-center justify-center"
         aria-label="Histórico"
         type="button"
         style={{ alignSelf: "center" }}

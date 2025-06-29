@@ -23,25 +23,25 @@ export default function EditorEmptyState({
           Sem título
         </h1>
         <ul className="flex flex-col gap-2">
-          <li className="flex items-center gap-2">
+          <li className="flex items-center gap-2 hover:bg-[#F1F0EA] hover:text-gray-800 transition-colors cursor-pointer rounded-md px-2 py-1">
             <Image
               src="/svgs/start-document.svg"
               alt=""
               width={20}
               height={20}
             />
-            <span className="text-gray-600 text-base">
+            <span className="text-gray-600 text-base group-hover:text-gray-800">
               {primaryText ?? primary}
             </span>
           </li>
-          <li className="flex items-center gap-2">
+          <li className="flex items-center gap-2 hover:bg-[#F1F0EA] hover:text-gray-800 transition-colors cursor-pointer rounded-md px-2 py-1">
             <Image
               src="/svgs/enter-to-ready.svg"
               alt=""
               width={20}
               height={20}
             />
-            <span className="text-gray-600 text-base">
+            <span className="text-gray-600 text-base group-hover:text-gray-800">
               {secondaryText ?? secondary}
             </span>
           </li>

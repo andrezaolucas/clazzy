@@ -39,7 +39,7 @@ export default function EditorToolbar({
   return (
     <div
       className="
-        fixed bottom-0 left-[240px] right-0
+        fixed bottom-0 left-[225px] right-0
         h-12
         bg-white
         border-t border-gray-200
@@ -63,7 +63,7 @@ export default function EditorToolbar({
       </select>
       <button
         type="button"
-        className="p-2 text-gray-500 hover:text-gray-700"
+        className="p-2 text-gray-500 hover:text-gray-700 hover:bg-[#F1F0EA] rounded-md transition-colors"
         aria-label="Inserir imagem"
         onClick={onInsertImage}
       >
@@ -71,7 +71,7 @@ export default function EditorToolbar({
       </button>
       <button
         type="button"
-        className="p-2 text-gray-500 hover:text-gray-700"
+        className="p-2 text-gray-500 hover:text-gray-700 hover:bg-[#F1F0EA] rounded-md transition-colors"
         aria-label="Inserir imagem IA"
         onClick={onInsertAIImage}
       >
@@ -79,7 +79,7 @@ export default function EditorToolbar({
       </button>
       <button
         type="button"
-        className="p-2 text-gray-500 hover:text-gray-700"
+        className="p-2 text-gray-500 hover:text-gray-700 hover:bg-[#F1F0EA] rounded-md transition-colors"
         aria-label="Inserir tabela"
         onClick={onInsertTable}
       >
@@ -87,7 +87,7 @@ export default function EditorToolbar({
       </button>
       <button
         type="button"
-        className="p-2 text-gray-500 hover:text-gray-700"
+        className="p-2 text-gray-500 hover:text-gray-700 hover:bg-[#F1F0EA] rounded-md transition-colors"
         aria-label="Inserir código"
         onClick={onInsertCode}
       >
@@ -95,7 +95,7 @@ export default function EditorToolbar({
       </button>
       <button
         type="button"
-        className="p-2 text-gray-500 hover:text-gray-700"
+        className="p-2 text-gray-500 hover:text-gray-700 hover:bg-[#F1F0EA] rounded-md transition-colors"
         aria-label="Inserir equação"
         onClick={onInsertEquation}
       >
@@ -103,7 +103,7 @@ export default function EditorToolbar({
       </button>
       <button
         type="button"
-        className="p-2 text-gray-500 hover:text-gray-700"
+        className="p-2 text-gray-500 hover:text-gray-700 hover:bg-[#F1F0EA] rounded-md transition-colors"
         aria-label="Inserir matemática"
         onClick={onInsertMath}
       >
@@ -112,7 +112,7 @@ export default function EditorToolbar({
       <span className="border-l h-6 border-gray-200 mx-2"></span>
       <button
         type="button"
-        className="p-2 text-gray-500 hover:text-gray-700"
+        className="p-2 text-gray-500 hover:text-gray-700 hover:bg-[#F1F0EA] rounded-md transition-colors"
         aria-label="Desfazer"
         onClick={onUndo}
       >
@@ -120,7 +120,7 @@ export default function EditorToolbar({
       </button>
       <button
         type="button"
-        className="p-2 text-gray-500 hover:text-gray-700"
+        className="p-2 text-gray-500 hover:text-gray-700 hover:bg-[#F1F0EA] rounded-md transition-colors"
         aria-label="Refazer"
         onClick={onRedo}
       >
